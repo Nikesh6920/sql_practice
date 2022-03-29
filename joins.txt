@@ -1,0 +1,39 @@
+Joins ASSIGN:
+
+1. use pracjoin;
+select * from employees;
+select * from dept;
+select e.last_name,d.dept_id,d.dept_name from employees as e,dept as d 
+where e.dept_id=d.dept_id;
+
+2. use pracjoin;
+select e.job_id,d.loc_id from employees as e, dept as d 
+where d.dept_id=50 and e.dept_id=d.dept_id;
+
+3. select e.last_name,d.dept_name,d.loc_id,l.city from employees as e,dept as d, location as l
+where e.dept_id=d.dept_id and d.loc_id=l.loc_id ;
+
+4. select e.last_name,d.dept_name from employees as e,dept as d
+where e.dept_id=d.dept_id and e.last_name like '%a%';
+
+5. select e.last_name,d.dept_id,d.dept_name,l.city from employees as e,dept as d,location as l
+where d.dept_id=e.dept_id and l.loc_id=d.loc_id and l.city='arak';
+
+6. select last_name as "Employee",emp_id as "EMP#",mgr as "Manager",mgr_no as "Mgr#"
+from employees;
+
+7. select last_name as 'employee' ,emp_id as 'emp#',mgr as 'manager',mgr_no as 'mgr#' from employees
+order by emp_id;
+
+8. select e.dept_id as "DEPARTMENT", e.last_name as "EMPLOYEE", c.last_name as "COLLEAGUE" from employees e 
+join employees c on(e.dept_id = c.dept_id) where e.emp_id <> c.emp_id 
+order by e.dept_id, e.last_name, c.last_name;
+
+9. select e.first_name,e.last_name,e.sal,j.job_type,j.job_grade,d.dept_name 
+from employees as e,job_history as j,dept as d where e.job_id=j.job_id and d.dept_id=e.dept_id;
+
+10. select e.last_name, e.hire_date from employees e 
+join employees s ON (s.last_name = 'Davies') where s.hire_date < e.hire_date;
+
+11. select e.last_name as "Employee", e.hire_date as "Emp Hired", s.mgr as "Manager",s.hire_date as "Mgr Hired"
+from employees e join employees s where s.hire_date > e.hire_date;

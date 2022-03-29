@@ -1,0 +1,30 @@
+DML ASSIGN:
+
+create database my_employees;
+use my_employees;
+create table emp(
+id int not null,
+last_name varchar(25),
+first_name varchar(25),
+user_id varchar(8),
+sal int
+);
+desc emp;
+
+1. desc emp;
+
+2. insert into emp values(1,'Patel','Ralph','rpatel',895);
+
+3. insert into emp values(2,'Dancs','Betty','bdancs',860);
+
+4. select * from emp;
+
+5. insert into emp values(3,'Shellby','Thomas','tshellby',880);
+
+6. update emp set last_name="Drexler" where id = 3;
+
+7. update emp set sal = 1000 where sal<900;
+
+8. delete from emp where first_name ="Betty";
+
+9. delete from emp;

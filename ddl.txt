@@ -1,0 +1,49 @@
+DDL ASSIGN:
+
+1. create database nike635;
+use nike635;
+create table TRG_DEPT(
+	id int(7),
+    name varchar(25)
+);
+desc TRG_DEPT;
+
+2. use departments;
+desc department;
+insert into department (code , name , budget) values (23, 'customer', 50000);
+select * from department;
+
+3. use nike635;
+create table TRG_EMP(
+	id int(7),
+    last_name varchar(25),
+    first_name varchar(25),
+    dept_id int(7)
+);desc TRG_EMP;
+
+4. use nike635;
+alter table TRG_EMP modify last_name varchar(40);
+
+5. use nike635;
+create table TRG_EMPOLYEES(
+	id int(7),
+    last_name varchar(25),
+    first_name varchar(25),
+    dept_id int(7),
+    salary double
+);desc TRG_EMPOLYEES;
+
+6. use nike635;
+create table dummy(
+	id int(7),
+    name varchar(25)
+);
+drop table dummy;
+desc dummy;
+
+7. use nike635;
+alter table TRG_EMPOLYEES rename TRG_EMP2;
+
+8. use nike635;
+alter table TRG_EMP2 drop column first_name;
+desc TRG_EMP2;

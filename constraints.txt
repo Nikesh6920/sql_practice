@@ -1,0 +1,28 @@
+Constraints ASSIGN:
+
+1. alter table TRG_EMP2 add constraint my_emp_id_pk primary key(id);
+desc TRG_EMP2;
+
+2. alter table TRG_DEPT add constraint my_dept_id_pk primary key(id);
+desc TRG_DEPT;
+
+3. ALTER TABLE TRG_EMP2 ADD (dept_id int(7));
+ALTER TABLE TRG_EMP2 ADD constraint my_emp_dept_id_fk 
+foreign key (dept_id) references TRG_DEPT(id);
+desc TRG_EMP2;
+
+4. select * from information_schema.key_column_usage where table_name in ('trg_emp', 'trg_dept');
+or(Better ans is the below one)
+select column_name,constraint_name,referenced_column_name,referenced_table_name from 
+information_schema.key_column_usage where table_name in ('trg_emp', 'trg_dept');
+
+5.select schema_name from information_schema.schema;
+select table_name, table_type from information_schema.tables
+where table_schema='digital_batch_2practice';
+
+6.use digital_batch_2practice;
+alter table TRG_EMP
+add commission dec(2,2),
+add constraint my_emp_comm_ck CHECK(commission>0);
+alter table TRG_EMP
+drop column commission;
