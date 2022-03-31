@@ -1,0 +1,95 @@
+
+create database fms_assign;
+
+create table passenger(passenger_id varchar(15) unique not null,
+passenger_name varchar(15) not null,
+passenger_email varchar(15) not null,
+passenger_dob date not null);
+
+desc passenger;
+
+insert into passenger (passenger_id,passenger_name,passenger_email,passenger_dob) 
+values ('P0001','Ram','Ram@gmail.com','80-12-01'),
+('P0002','Rajan','Rajan@gmail.com','39-11-11'),
+('P0003','Smita','Smita@gmail.com','88-02-06'),                                                      
+('P0004','Bhavan','Bhav@gmail.com','73-09-18'),
+('P0005','Sheela','Shela@gmail.com','76-05-09'),
+('P0006','Nethra','Netra@gmail.com','55-10-08');
+
+select * from passenger;
+
+create table flight(
+flightid Varchar(15) unique not null primary key,
+flightsource Varchar(15) not null,
+flightdest Varchar(15) not null,
+flightdate Varchar(15) not null,
+flightseat Varchar(15) not null,
+ticketcost Varchar(15) not null);
+
+desc flight;
+
+insert into flight (flightid,flightsource,flightdest,flightdate,flightseat,ticketcost) values
+('F0001','Kolkatta','Hyderabad','12-12-01',100,2000),
+('F0002','Chennai','Hyderabad','12-12-02',100,3000),
+('F0003','Pune','Kolkatta','12-12-02',100,2500),
+('F0004','Bangalore','Pune','12-11-18',100,2300),
+('F0005','Hyderabad','Bangalore','12-04-09',100,2600),
+('F0006','Pune','Hyderabad','12-08-08',100,3500),
+('F0007','Pune','Kolkatta','12-12-04',100,2900),
+('F0008','Kolkatta','Hyderabad','12-12-06',100,3500);
+
+select * from flight;
+
+create table booking(
+booking_id	Varchar(15) unique not null primary key,
+flight_id	Varchar(15) not null,
+bookdate date not null,
+foreign key (flight_id) references flight (flightid));
+
+desc booking;
+
+insert into booking(booking_id,flight_id,bookdate) values
+('B0001','F0001','12-12-01'),
+('B0002','F0004','12-12-02'),
+('B0003','F0005','12-12-03'),
+('B0004','F0003','12-12-04'),
+('B0005','F0001','12-12-02'),
+('B0006','F0004','12-12-02'),
+('B0007','F0003','16-12-02');
+
+select * from booking;
+
+create table Booking_Details (
+Booking_id	Varchar(15),
+passenger_id Varchar(15),
+foreign key (booking_id) references booking (booking_id),
+foreign key (passenger_id) references passenger (passenger_id));
+
+desc Booking_Details;
+
+insert into Booking_Details (Booking_id,passenger_id) values
+('B0001','P0001'),
+('B0001','P0002'),
+('B0001','P0003'),
+('B0002','P0004'),
+('B0002','P0005'),
+('B0003','P0006'),
+('B0003','P0001'),
+('B0004','P0002'),
+('B0005','P0003');
+
+select * from booking_details;
+
+#1
+select passenger_name from passenger where passenger_name like '_e%';
+
+#2
+select passenger_name from passenger having max(passenger_dob);
+
+#3
+select count(flightid) from flight where flightsource = "Kolkatta";
+
+#4
+select passenger_name from passenger where passenger_id 
+in (select passenger_id from booking_details 
+group by passenger_id having count(Booking_id)>1);
