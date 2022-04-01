@@ -1,0 +1,268 @@
+show databases;
+create database nike635;
+drop database nike635;
+use nike635;
+
+
+
+
+
+create table student
+(
+student_id int unsigned not null,
+name varchar(20) not null,
+major varchar(50),
+grade varchar(5)
+);
+
+select * from student;
+
+desc student;
+
+alter table student add primary key(student_id);
+
+
+
+use "order by" to get exact sorted result as shown in question
+
+
+
+
+
+
+DDL ASSIGN:
+1. create database nike635;
+use nike635;
+
+create table TRG_DEPT(
+	id int(7),
+    name varchar(25)
+);
+desc TRG_DEPT;
+2. use departments;
+desc department;
+insert into department (code , name , budget) values (23, 'customer', 50000);
+select * from department;
+3. use nike635;
+create table TRG_EMP(
+	id int(7),
+    last_name varchar(25),
+    first_name varchar(25),
+    dept_id int(7)
+);desc TRG_EMP;
+4. use nike635;
+alter table TRG_EMP modify last_name varchar(40);
+5. use nike635;
+create table TRG_EMPOLYEES(
+	id int(7),
+    last_name varchar(25),
+    first_name varchar(25),
+    dept_id int(7),
+    salary double
+);desc TRG_EMPOLYEES;
+6. use nike635;
+create table dummy(
+	id int(7),
+    name varchar(25)
+);
+
+drop table dummy;
+desc dummy;
+7. use nike635;
+alter table TRG_EMPOLYEES rename TRG_EMP2;
+8. use nike635;
+alter table TRG_EMP2 drop column first_name;
+desc TRG_EMP2;
+
+
+
+Constraints ASSIGN:
+1. alter table TRG_EMP2 add constraint my_emp_id_pk primary key(id);
+desc TRG_EMP2;
+2. alter table TRG_DEPT add constraint my_dept_id_pk primary key(id);
+desc TRG_DEPT;
+3. ALTER TABLE TRG_EMP2 ADD (dept_id int(7));
+ALTER TABLE TRG_EMP2 ADD constraint my_emp_dept_id_fk 
+foreign key (dept_id) references TRG_DEPT(id);
+desc TRG_EMP2;
+4. select * from information_schema.key_column_usage where table_name in ('trg_emp', 'trg_dept');
+or(Better ans is the below one)
+select column_name,constraint_name,referenced_column_name,referenced_table_name from 
+information_schema.key_column_usage where table_name in ('trg_emp', 'trg_dept');
+5.select schema_name from information_schema.schema;
+select table_name, table_type from information_schema.tables
+where table_schema='digital_batch_2practice';
+6.use digital_batch_2practice;
+alter table TRG_EMP
+add commission dec(2,2),
+add constraint my_emp_comm_ck CHECK(commission>0);
+alter table TRG_EMP
+drop column commission;
+
+
+
+Practice 1 ASSIGN:
+1.use practice1and2;
+SELECT ename, job, sal AS Sal FROM emp;
+TRUE
+2.use basic_select;
+desc practice_details;
+select * from practice_details;
+TRUE
+3.Errors in multiplication operator, annual salaries must be inside quotes 
+and a comma sholud come after ename.
+4.use basic_select;
+desc practice_details;
+select * from practice_details;
+5.use practice1and2;
+desc emp;
+select ENAME,EMPNO, JOB, MGR, HIREDATE as STARTDATE,SAL, COMM, DEPTNO from emp;
+6.use practice1and2;
+select distinct JOB from emp;
+7.use practice1and2;
+select EMPNO as 'EMP #', ENAME as Employee,JOB as 'Job Title',HIREDATE as 'Hire Date'from emp;
+
+
+
+Practice 2 ASSIGN:
+1.use practice1and2;
+select ENAME,SAL from emp where SAL > 2000;
+2.use practice1and2;
+select ENAME,DEPTNO from emp where EMPNO = 7902;
+3.use practice1and2;
+select ENAME,SAL from emp where SAL < 2000;
+4.use practice1and2;
+select ENAME,JOB,HIREDATE from emp 
+where HIREDATE between '1981-02-20' and '1981-05-1' order by HIREDATE ASC ;
+5.use practice1and2;
+select ENAME,DEPTNO from emp where DEPTNO=10 or DEPTNO=30 order by ENAME ASC;
+6.use practice1and2;
+select ENAME 'Employee',SAL 'Monthly Salary' from emp 
+where (SAL between 2000 and 3000) and DEPTNO in (10,30);
+7.use practice1and2;
+select ENAME, HIREDATE from emp where year(HIREDATE) = 1981;
+8.use practice1and2;
+select ENAME, JOB from emp where MGR is null;
+9.use practice1and2;
+select *from emp;
+select ENAME, SAL,COMM from emp where COMM is not null order by SAL DESC;
+10.use practice1and2;
+select ENAME from emp where ENAME like "__A%";
+11.use practice1and2;
+select ENAME from emp 
+where ENAME like '%A%' 
+and ENAME like'%E%';
+12.use practice1and2;
+select ENAME,JOB,SAL from emp where JOB in ('SALESMAN','CLERK') and SAL not in (1600,8000,1300);
+13.
+use practice1and2;
+select ENAME,SAL,COMM from emp where COMM > 20%SAL;
+
+
+Subqueries ASSIGN:
+1. use practice1and2;
+select ENAME,HIREDATE from emp 
+where DEPTNO =(select DEPTNO from emp where ENAME="SMITH") and ENAME!="SMITH";
+2.use practice1and2;
+select EMPNO,ENAME from emp 
+where SAL>(select avg(sal) from emp) order by SAL ASC;
+3.use practice1and2;
+select EMPNO,ENAME from emp
+where DEPTNO = ANY(select DEPTNO from EMP where ENAME like"%U%");
+4.use practice1and2;
+select ENAME,SAL from emp
+where DEPTNO = (select DEPTNO from emp where ENAME = "BLAKE") and ENAME!="BLAKE"; 
+5.use practice1and2;
+select DEPTNO,EMPLOYEE,JOB_TITLE from emp
+where DEPTNO = (select distinct DEPTNO from emp where JOB_TITLE="SALESMAN");
+6.use practice1and2;
+select EMP,EMPLOYEE,SAL from emp
+where SAL>(select avg(SAL) from emp) 
+and DEPTNO = ANY(select DEPTNO from emp where EMPLOYEE like"%A%");
+
+
+
+
+Joins ASSIGN:
+1. use pracjoin;
+select * from employees;
+select * from dept;
+select e.last_name,d.dept_id,d.dept_name from employees as e,dept as d 
+where e.dept_id=d.dept_id;
+2. use pracjoin;
+select e.job_id,d.loc_id from employees as e, dept as d 
+where d.dept_id=50 and e.dept_id=d.dept_id;
+3. select e.last_name,d.dept_name,d.loc_id,l.city from employees as e,dept as d, location as l
+where e.dept_id=d.dept_id and d.loc_id=l.loc_id ;
+4. select e.last_name,d.dept_name from employees as e,dept as d
+where e.dept_id=d.dept_id and e.last_name like '%a%';
+5. select e.last_name,d.dept_id,d.dept_name,l.city from employees as e,dept as d,location as l
+where d.dept_id=e.dept_id and l.loc_id=d.loc_id and l.city='arak';
+6. select last_name as "Employee",emp_id as "EMP#",mgr as "Manager",mgr_no as "Mgr#"
+from employees;
+7. select last_name as 'employee' ,emp_id as 'emp#',mgr as 'manager',mgr_no as 'mgr#' from employees
+order by emp_id;
+8. select e.dept_id as "DEPARTMENT", e.last_name as "EMPLOYEE", c.last_name as "COLLEAGUE" from employees e 
+join employees c on(e.dept_id = c.dept_id) where e.emp_id <> c.emp_id 
+order by e.dept_id, e.last_name, c.last_name;
+9. select e.first_name,e.last_name,e.sal,j.job_type,j.job_grade,d.dept_name 
+from employees as e,job_history as j,dept as d where e.job_id=j.job_id and d.dept_id=e.dept_id;
+10. select e.last_name, e.hire_date from employees e 
+join employees s ON (s.last_name = 'Davies') where s.hire_date < e.hire_date;
+11. select e.last_name as "Employee", e.hire_date as "Emp Hired", s.mgr as "Manager",s.hire_date as "Mgr Hired"
+from employees e join employees s where s.hire_date > e.hire_date;
+
+
+
+
+GroupFuctions ASSIGN:
+1. True
+2. False
+3. True
+4. use practice1and2;
+select min(sal) as MINIMUM, max(sal) as MAXIMUM, sum(sal) as SUM, round(avg(sal), 0) as AVERAGE from emp;
+5. use pract1and2;
+select min(sal) as MINIMUM, max(sal) as MAXIMUM, sum(sal) as SUM, round(avg(sal), 0) as AVERAGE 
+from emp group by job order by job;
+6. use pract1and2;
+select job, count(job) as "COUNT(*)" from emp group by job order by job;
+7. use pract1and2;
+select count(job) as "NUMBER OF MANAGERS" from emp where job="Manager";
+8. select max(sal)-min(sal) as "DIFFERENCE" from emp;
+9. select mgr,min(sal) from emp where (sal>1000) and mgr is not null group by mgr order by sal desc;
+10. select count(*) as "TOTAL",
+(select count(*) from emp where year(hiredate) = '1983') as "1983", 
+(select count(*) from emp where year(hiredate) = '1982') as "1982",
+(select count(*) from emp where year(hiredate) = '1980') as "1980" from emp;
+11. use pract1and2;
+SELECT DISTINCT job,
+SUM(CASE deptno WHEN 10 THEN sal END) "Dept 10",
+SUM(CASE deptno WHEN 20 THEN sal END) "Dept 20",
+SUM(CASE deptno WHEN 30 THEN sal END) "Dept 30",
+SUM(sal) "Total" FROM emp GROUP BY job order by job;
+
+
+
+
+
+DML ASSIGN:
+create database my_employees;
+use my_employees;
+create table emp(
+id int not null,
+last_name varchar(25),
+first_name varchar(25),
+user_id varchar(8),
+sal int
+);
+desc emp;
+
+1. desc emp;
+2. insert into emp values(1,'Patel','Ralph','rpatel',895);
+3. insert into emp values(2,'Dancs','Betty','bdancs',860);
+4. select * from emp;
+5. insert into emp values(3,'Shellby','Thomas','tshellby',880);
+6. update emp set last_name="Drexler" where id = 3;
+7. update emp set sal = 1000 where sal<900;
+8. delete from emp where first_name ="Betty";
+9. delete from emp;
