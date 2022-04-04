@@ -3,11 +3,11 @@ DML ASSIGN:
 create database my_employees;
 use my_employees;
 create table emp(
-id int not null,
+id numeric(4) not null,
 last_name varchar(25),
 first_name varchar(25),
 user_id varchar(8),
-sal int
+sal numeric(9,2)
 );
 desc emp;
 
@@ -15,11 +15,12 @@ desc emp;
 
 2. insert into emp values(1,'Patel','Ralph','rpatel',895);
 
-3. insert into emp values(2,'Dancs','Betty','bdancs',860);
+3. insert into emp (id,last_name,first_name,user_id,sal) values(2,'Dancs','Betty','bdancs',860);
 
 4. select * from emp;
 
 5. insert into emp values(3,'Shellby','Thomas','tshellby',880);
+update emp set user_id = (concat('t','Shellby')) where id = 3;
 
 6. update emp set last_name="Drexler" where id = 3;
 

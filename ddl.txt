@@ -3,7 +3,7 @@ DDL ASSIGN:
 1. create database nike635;
 use nike635;
 create table TRG_DEPT(
-	id int(7),
+	id numeric(7),
     name varchar(25)
 );
 desc TRG_DEPT;
@@ -15,10 +15,10 @@ select * from department;
 
 3. use nike635;
 create table TRG_EMP(
-	id int(7),
+	id numeric(7),
     last_name varchar(25),
     first_name varchar(25),
-    dept_id int(7)
+    dept_id numeric(7)
 );desc TRG_EMP;
 
 4. use nike635;
@@ -26,16 +26,16 @@ alter table TRG_EMP modify last_name varchar(40);
 
 5. use nike635;
 create table TRG_EMPOLYEES(
-	id int(7),
+	id numeric(7),
     last_name varchar(25),
     first_name varchar(25),
-    dept_id int(7),
+    dept_id numeric(7),
     salary double
 );desc TRG_EMPOLYEES;
 
 6. use nike635;
 create table dummy(
-	id int(7),
+	id numeric(7),
     name varchar(25)
 );
 drop table dummy;

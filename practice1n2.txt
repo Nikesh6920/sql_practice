@@ -9,7 +9,7 @@ desc practice_details;
 select * from practice_details;
 TRUE
 
-3.Errors in multiplication operator, annual salaries must be inside quotes 
+3.Errors in multiplication operator, annual salaries must be inside quotes or with _ 
 and a comma sholud come after ename.
 
 4.use basic_select;
@@ -24,7 +24,7 @@ select ENAME,EMPNO, JOB, MGR, HIREDATE as STARTDATE,SAL, COMM, DEPTNO from emp;
 select distinct JOB from emp;
 
 7.use practice1and2;
-select EMPNO as 'EMP #', ENAME as Employee,JOB as 'Job Title',HIREDATE as 'Hire Date'from emp;
+select EMPNO as 'EMP #', ENAME as Employee,JOB as 'Job Title',HIREDATE as 'Hire Date' from emp;
 
 
 
@@ -38,7 +38,7 @@ select ENAME,SAL from emp where SAL > 2000;
 select ENAME,DEPTNO from emp where EMPNO = 7902;
 
 3.use practice1and2;
-select ENAME,SAL from emp where SAL < 2000;
+select ENAME,SAL from emp where SAL NOT BETWEEN 2000 and 5000;
 
 4.use practice1and2;
 select ENAME,JOB,HIREDATE from emp 
